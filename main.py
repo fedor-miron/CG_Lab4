@@ -110,14 +110,13 @@ def to_pixel_array(pixels_at: list, line: Rect):
 
     return arr
 
-def show(pixels_at: list, line: Rect):
-    plt.pcolormesh(to_pixel_array(pixels_at, line), edgecolors='black', linewidth=1, cmap=plt.cm.gray, snap=True)
-    plt.gca().set_aspect('equal')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.show()
 
 def main():
+
+    method = sys.argv[1]
+
+    start = time.perf_counter()
+
     def show_line(method):
         x0 = int(sys.argv[2])
         y0 = int(sys.argv[3])
@@ -127,9 +126,13 @@ def main():
         rect = Rect(x0,y0,x1,y1)
         show(line, rect)
 
-    method = sys.argv[1]
-
-    start = time.perf_counter()
+    def show(pixels_at: list, line: Rect):
+        print("Time: ", time.perf_counter() - start)
+        plt.pcolormesh(to_pixel_array(pixels_at, line), edgecolors='black', linewidth=1, cmap=plt.cm.gray, snap=True)
+        plt.gca().set_aspect('equal')
+        plt.xlabel('x')
+        plt.ylabel('y')
+        plt.show()
 
     if method == 'bresenham_line':
         show_line(bresenham_line)
@@ -145,7 +148,6 @@ def main():
         rect = Rect(x0 - r, y0 - r, x0 + r, y0 + r)
         show(circle, rect)
 
-    print("Time: ", time.perf_counter() - start)
 
 if __name__ == "__main__":
     main()

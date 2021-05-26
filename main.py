@@ -2,6 +2,7 @@ import numpy as np
 import sys
 from matplotlib import pyplot as plt
 from dataclasses import dataclass
+import time
 
 def step_line(x0: int, y0: int, x1: int, y1: int):
     dy_higher = abs(y1 - y0) > abs(x1 - x0)
@@ -127,6 +128,9 @@ def main():
         show(line, rect)
 
     method = sys.argv[1]
+
+    start = time.perf_counter()
+
     if method == 'bresenham_line':
         show_line(bresenham_line)
     elif method == 'dda_line':
@@ -140,6 +144,8 @@ def main():
         circle = bresenham_circle(x0,y0,r)
         rect = Rect(x0 - r, y0 - r, x0 + r, y0 + r)
         show(circle, rect)
+
+    print("Time: ", time.perf_counter() - start)
 
 if __name__ == "__main__":
     main()

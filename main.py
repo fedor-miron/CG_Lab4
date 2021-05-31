@@ -112,7 +112,6 @@ def to_pixel_array(pixels_at: list, line: Rect):
 
 
 def main():
-
     method = sys.argv[1]
 
     start = time.perf_counter()
